@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CineScope — Discover, search and explore movies" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <title>CineScope — Discover Movies</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-left">
+      <div class="logo">CINE<span>SCOPE</span></div>
+    </div>
+    <div class="nav-center">
+      <div class="search-wrap" id="searchWrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search any movie..." autocomplete="off" spellcheck="false" />
+        <button class="search-clear-btn" id="searchClearBtn" aria-label="Clear">✕</button>
+        <div class="search-results-dropdown" id="searchDropdown"></div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="fav-nav-btn" id="favToggleBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="fav-nav-label">Watchlist</span>
+        <span class="fav-count" id="favCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-bottom-fade"></div>
+    <div class="hero-content" id="heroContent">
+      <div class="hero-eyebrow">
+        <span class="hero-badge-dot"></span>
+        <span>Featured Film</span>
+      </div>
+      <h1 class="hero-title" id="heroTitle">—</h1>
+      <div class="hero-meta" id="heroMeta"></div>
+      <p class="hero-desc" id="heroDesc"></p>
+      <div class="hero-cta">
+        <button class="btn-watch" id="heroDetailsBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          View Details
+        </button>
+        <button class="btn-add" id="heroFavBtn">+ Watchlist</button>
+      </div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Browse by Mood</h2>
+      </div>
+      <div class="genre-pills" id="genrePills"></div>
+    </section>
+
+    <div class="filter-bar">
+      <div class="filter-left">
+        <span class="filter-dot"></span>
+        <span class="filter-info" id="filterInfo">Trending Now</span>
+      </div>
+      <div class="filter-right">
+        <div class="sort-wrap">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="6" x2="3" y2="6"/><line x1="17" y1="12" x2="7" y2="12"/><line x1="13" y1="18" x2="11" y2="18"/></svg>
+          <select class="sort-select" id="sortSelect">
+            <option value="popularity.desc">Most Popular</option>
+            <option value="vote_average.desc">Highest Rated</option>
+            <option value="release_date.desc">Newest First</option>
+            <option value="release_date.asc">Oldest First</option>
+            <option value="title.asc">A → Z</option>
+          </select>
+        </div>
+        <button class="reset-btn" id="clearFilters">Reset</button>
+      </div>
+    </div>
+
+    <section class="section" id="trendingSection">
+      <div class="section-head">
+        <h2 class="section-title">Trending Now</h2>
+        <span class="live-badge"><span class="live-dot"></span>Live</span>
+      </div>
+      <div class="movies-grid" id="trendingGrid"></div>
+    </section>
+
+    <section class="section" id="topRatedSection">
+      <div class="section-head">
+        <h2 class="section-title">All-Time Greats</h2>
+      </div>
+      <div class="movies-grid" id="topRatedGrid"></div>
+    </section>
+
+    <section class="section" id="nowPlayingSection">
+      <div class="section-head">
+        <h2 class="section-title">Now Playing</h2>
+        <span class="live-badge"><span class="live-dot"></span>In Cinemas</span>
+      </div>
+      <div class="movies-grid" id="nowPlayingGrid"></div>
+      <div class="scroll-sentinel" id="scrollSentinel">
+        <div class="scroll-loader" id="scrollLoader">
+          <span class="ldot"></span><span class="ldot"></span><span class="ldot"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="favoritesSection" style="display:none">
+      <div class="section-head">
+        <h2 class="section-title">Your Watchlist</h2>
+        <span class="saved-badge">Saved</span>
+      </div>
+      <div class="movies-grid" id="favoritesGrid"></div>
+      <p class="empty-state" id="emptyFav">Nothing saved yet. Hit ♡ on any movie.</p>
+    </section>
+
+    <section class="section" id="searchResultsSection" style="display:none">
+      <div class="section-head">
+        <h2 class="section-title" id="resultsTitle">Results</h2>
+        <span class="results-count" id="searchResultCount"></span>
+      </div>
+      <div class="movies-grid" id="searchResultsGrid"></div>
+    </section>
+
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-hero-band" id="modalHeroBand">
+        <div class="modal-hero-img" id="modalBackdrop"></div>
+        <div class="modal-hero-fade"></div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-left">
+          <div class="modal-poster-frame">
+            <img class="modal-poster" id="modalPoster" src="" alt="" />
+          </div>
+          <button class="modal-fav-btn" id="modalFavBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span id="modalFavText">Add to Watchlist</span>
+          </button>
+        </div>
+        <div class="modal-right">
+          <div class="modal-genre-row" id="modalGenres"></div>
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <div class="modal-stats">
+            <span class="mstat accent" id="modalRating"></span>
+            <span class="mstat" id="modalYear"></span>
+            <span class="mstat" id="modalRuntime"></span>
+            <span class="mstat" id="modalLang"></span>
+          </div>
+          <p class="modal-overview" id="modalOverview"></p>
+          <p class="modal-cast-label" id="modalCastLabel"></p>
+          <div class="modal-cast" id="modalCast"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
